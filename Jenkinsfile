@@ -41,7 +41,7 @@ pipeline {
                     sh "kubectl get nodes"
                     sh "kubectl get deployment"
                     sh "kubectl get pod -o wide"
-                    sh "kubectl get service/capstone-project-cloud-devops"
+                    sh "kubectl get service/microservices-in-k8"
                 }
             }
         }
