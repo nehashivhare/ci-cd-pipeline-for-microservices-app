@@ -18,6 +18,7 @@ pipeline {
                         aws eks --region eu-central-1 update-kubeconfig --name neha-cluster
                     '''
                     sh "kubectl get svc"
+                    sh "kubectl get pods"
                 }
             }
         }
