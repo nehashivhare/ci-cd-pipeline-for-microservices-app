@@ -22,7 +22,7 @@ pipeline {
         }
         stage('Push docker image to dockerhub') {
             steps {
-                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
+                withDockerRegistry(credentialsId: 'dockerhub', url:"") {
                     sh '''docker push nehashivhare/deployink8:$BUILD_ID'''
                 }
             }
