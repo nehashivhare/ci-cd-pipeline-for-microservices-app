@@ -37,7 +37,7 @@ pipeline {
                     // roll out updates in production
                     //sh "kubectl set image deployment/microservices-in-k8 microservices-in-k8=nehashivhare/deployink8:latest"
                     // deploy container to kubernetes
-                    sh "kubectl apply -f deployment/deploy-app-in-kubernetes.yaml"
+                    //sh "kubectl apply -f deployment/deploy-app-in-kubernetes.yaml"
                     sh "kubectl get pod"
                     sh "kubectl get nodes"
                     sh "kubectl get deployment"
