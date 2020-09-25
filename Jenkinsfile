@@ -15,7 +15,7 @@ pipeline {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
                 sh '''
-                    docker build -t nehashivhare/deployink8:$BUILD_ID .
+                    docker build -t nehashivhare/deployink8:latest .
                     '''
                  }
             }
@@ -23,17 +23,20 @@ pipeline {
         stage('Push docker image to dockerhub') {
             steps {
                 withDockerRegistry(credentialsId: 'dockerhub', url:"") {
-                    sh '''docker push nehashivhare/deployink8:$BUILD_ID'''
+                    sh '''docker push nehashivhare/deployink8:latest'''
                 }
             }
         }
         stage('Create kubeconfig file for jenkins user') {
             steps {
                 withAWS(region: 'eu-central-1', credentials: 'neha-test') {
-                    sh '''
-                        aws eks --region eu-central-1 update-kubeconfig --name neha-cluster
-                    '''
+                    // creates or updates config file
+                    sh ''' aws eks --region eu-central-1 update-kubeconfig --name neha-cluster'''
                     sh "kubectl get svc"
+                    // create namespace
+                    sh "kubectl create namespace neha-namespace"
+                    // deploy container to kubernetes
+                    sh "kubectl apply -f deploy-app-in-kubernetes.yaml"
                     sh "kubectl get pod"
                 }
             }
