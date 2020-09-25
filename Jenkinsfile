@@ -34,7 +34,7 @@ pipeline {
                     sh ''' aws eks --region eu-central-1 update-kubeconfig --name neha-cluster'''
                     sh "kubectl get svc"
                     sh "kubectl config use-context arn:aws:eks:eu-central-1:353818597354:cluster/neha-cluster"
-                    sh "kubectl set image deployments/microservices-in-k8 microservices-in-k8=nehashivhare/deployink8:latest"
+                    sh "kubectl set image deployment/microservices-in-k8 microservices-in-k8=nehashivhare/deployink8:latest"
                     // deploy container to kubernetes
                     sh "kubectl apply -f deployment/deploy-app-in-kubernetes.yaml"
                     sh "kubectl get pod"
