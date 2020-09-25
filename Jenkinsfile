@@ -14,9 +14,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD']]) {
-                sh '''
-                    docker build -t nehashivhare/deployink8:$BUILD_ID .
-                    '''
+                sh ''' docker build -t nehashivhare/deployink8:$BUILD_ID . '''
+                sh '''docker push nehashivhare/deployink8:$BUILD_ID'''
                  }
             }
         }
