@@ -15,7 +15,7 @@ pipeline {
             steps {
                 withAWS(region: 'eu-central-1', credentials: 'neha-test') {
                     sh '''
-                            aws eks --region eu-central-1 update-kubeconfig --name nehakubeconfig
+                            aws eks --region eu-central-1 update-kubeconfig --name neha-cluster
                     '''
                 }
             }
