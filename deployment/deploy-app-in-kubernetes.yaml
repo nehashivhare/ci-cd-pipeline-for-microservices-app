@@ -6,7 +6,7 @@ metadata:
   labels:
     app: microservices-in-k8
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: microservices-in-k8
