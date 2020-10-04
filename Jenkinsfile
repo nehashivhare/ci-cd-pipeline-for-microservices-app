@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Create kubeconfig file for jenkins user') {
             steps {
-                withAWS(region: 'eu-central-1', credentials: 'neha-test') {
+                withAWS(region: 'us-east-2', credentials: 'neha-test') {
                     // creates or updates config file
                     sh ''' aws eks --region us-east-2 update-kubeconfig --name final-project-neha-cluster'''
                     sh "kubectl get svc"
