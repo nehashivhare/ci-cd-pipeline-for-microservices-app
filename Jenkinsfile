@@ -31,17 +31,13 @@ pipeline {
             steps {
                 withAWS(region: 'eu-central-1', credentials: 'neha-test') {
                     // creates or updates config file
-                    sh ''' aws eks --region eu-central-1 update-kubeconfig --name neha-cluster'''
+                    sh ''' aws eks --region us-east-2 update-kubeconfig --name final-project-neha-cluster'''
                     sh "kubectl get svc"
-                    sh "kubectl config use-context arn:aws:eks:eu-central-1:353818597354:cluster/neha-cluster"
+                    sh "kubectl config use/context arn:aws:eks:us-east-2:945235147511:cluster/final-project-neha-cluster"
                     // roll out updates in production
-                    //sh "kubectl set image deployment/microservices-in-k8 microservices-in-k8=nehashivhare/deployink8:latest"
+                    sh "kubectl set image deployment/microservices-in-k8 microservices-in-k8=nehashivhare/deployink8:latest"
                     // deploy container to kubernetes
                     sh "kubectl apply -f deployment/deploy-app-in-kubernetes.yaml"
-                    sh "kubectl get pod"
-                    sh "kubectl get nodes"
-                    sh "kubectl get deployment"
-                    sh "kubectl get pod -o wide"
                     sh "kubectl get service/microservices-in-k8"
                 }
             }
